@@ -1,5 +1,29 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap");
+
+:root {
+	--primary-color: #3a7bfd;
+	--check-color: linear-gradient(to left, #57ddff, #c058f3);
+
+	/* Light Theme Colors */
+	--very-light-gray: #fafafa;
+	--very-light-grayish-blue: #e4e5f1;
+	--light-grayish-blue: #d2d3db;
+	--dark-grayish-blue: #9394a5;
+	--very-dark-grayish-blue: #484b6a;
+
+	/* Dark Theme Colors */
+	--very-dark-blue: #161722;
+	--very-dark-desaturated-blue: #25273c;
+	--light-grayish-blue-dark: #cacde8;
+	--light-grayish-blue-hover: #e4e5f1;
+	--dark-grayish-blue-dark: #777a92;
+	--very-dark-grayish-blue-dark1: #4d5066;
+	--very-dark-grayish-blue-dark2: #393a4c;
+}
+
 * {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+	font-family: "Josefin Sans", sans-serif;
 }
