@@ -8,6 +8,59 @@
 		<link rel="stylesheet" href="styles.css" />
 	</head>
 	<body>
-		<h1>Coucou c'est nous, c'est derrick</h1>
+		<header>
+			<nav>
+				<h1>TODO</h1>
+				<button type="button">
+					<img src="./images/icon-moon.svg" alt="mode nuit" />
+				</button>
+			</nav>
+			<div class="todo-input">
+				<input type="checkbox" id="new-todo-checkbox" />
+				<input
+					type="text"
+					placeholder="Create a new todo..."
+					id="new-todo-input"
+				/>
+			</div>
+		</header>
+		<main>
+			<ul class="todo-list">
+				<li>
+					<input type="checkbox" class="todo-checkbox" />
+					<span class="todo-text">Jog around the park 3x</span>
+					<button class="delete-btn">✕</button>
+				</li>
+				<li>
+					<input type="checkbox" class="todo-checkbox" />
+					<span class="todo-text">10 minutes meditation</span>
+					<button class="delete-btn">✕</button>
+				</li>
+				<li>
+					<input type="checkbox" class="todo-checkbox" />
+					<span class="todo-text">Read for 1 hour</span>
+					<button class="delete-btn">✕</button>
+				</li>
+				<li>
+					<input type="checkbox" class="todo-checkbox" />
+					<span class="todo-text">Pick up groceries</span>
+					<button class="delete-btn">✕</button>
+				</li>
+
+				<li class="todo-footer">
+					<span class="items-left">5 items left</span>
+					<button class="clear-completed">Clear Completed</button>
+				</li>
+			</ul>
+			<footer class="filters">
+				<div>
+					<button class="filter active">All</button>
+					<button class="filter">Active</button>
+					<button class="filter">Completed</button>
+				</div>
+			</footer>
+
+			<p class="drag-drop">Drag and drop to reorder list</p>
+		</main>
 	</body>
 </html>
