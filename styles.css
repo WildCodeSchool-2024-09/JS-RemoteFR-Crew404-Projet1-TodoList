@@ -80,11 +80,6 @@ header button {
 	transition: 0.3s;
 }
 
-/* input[type="checkbox"]:checked {
-	background-color: var(--check-color);
-	border-color: #6200ea;
-} */
-
 .todo-input input[type="text"] {
 	border: none;
 	outline: none;
@@ -126,11 +121,6 @@ ul.todo-list li:first-child {
 	border-top-right-radius: 5px;
 }
 
-ul.todo-list li:last-child {
-	border-bottom-left-radius: 5px;
-	border-bottom-right-radius: 5px;
-}
-
 ul.todo-list li .todo-text {
 	flex-grow: 1;
 	margin-left: 10px;
@@ -143,6 +133,23 @@ ul.todo-list li .delete-btn {
 	font-size: 20px;
 	color: hsl(236, 9%, 61%);
 	cursor: pointer;
+}
+
+.todo-item {
+	transition: all 0.2s ease;
+}
+
+.dragging {
+	opacity: 0.5;
+}
+
+.drag-over {
+	border: 2px dashed #000;
+}
+
+.todo-checkbox:checked + .todo-text {
+	text-decoration: line-through;
+	color: var(--dark-grayish-blue);
 }
 
 .todo-list input[type="checkbox"] {
@@ -166,10 +173,14 @@ ul.todo-list li .delete-btn {
 }
 
 .todo-footer {
+	background-color: white;
+	border: 1px solid var(--light-grayish-blue);
+	border-radius: 0 0 10px 10px;
 	display: flex;
+
 	justify-content: space-between;
 	align-items: center;
-	padding: 10px 0;
+	padding: 15px 24px;
 	color: hsl(236, 9%, 61%);
 }
 

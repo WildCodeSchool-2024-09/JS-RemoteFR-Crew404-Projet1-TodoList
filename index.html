@@ -4,7 +4,6 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Todo App</title>
-		<script src="script.js"></script>
 		<link rel="stylesheet" href="styles.css" />
 	</head>
 	<body>
@@ -25,41 +24,11 @@
 			</div>
 		</header>
 		<main>
-			<ul class="todo-list">
-				<li>
-					<input type="checkbox" class="todo-checkbox" />
-					<span class="todo-text">Jog around the park 3x</span>
-					<button class="delete-btn">
-						<img src="./images/icon-cross.svg" alt="delete todo" />
-					</button>
-				</li>
-				<li>
-					<input type="checkbox" class="todo-checkbox" />
-					<span class="todo-text">10 minutes meditation</span>
-					<button class="delete-btn">
-						<img src="./images/icon-cross.svg" alt="delete todo" />
-					</button>
-				</li>
-				<li>
-					<input type="checkbox" class="todo-checkbox" />
-					<span class="todo-text">Read for 1 hour</span>
-					<button class="delete-btn">
-						<img src="./images/icon-cross.svg" alt="delete todo" />
-					</button>
-				</li>
-				<li>
-					<input type="checkbox" class="todo-checkbox" />
-					<span class="todo-text">Pick up groceries</span>
-					<button class="delete-btn">
-						<img src="./images/icon-cross.svg" alt="delete todo" />
-					</button>
-				</li>
-
-				<li class="todo-footer">
-					<span class="items-left">5 items left</span>
-					<button class="clear-completed">Clear Completed</button>
-				</li>
-			</ul>
+			<ul class="todo-list"></ul>
+			<div class="todo-footer">
+				<span class="items-left">No items left</span>
+				<button class="clear-completed">Clear Completed</button>
+			</div>
 			<footer class="filters">
 				<div>
 					<button class="filter active">All</button>
@@ -70,5 +39,7 @@
 
 			<p class="drag-drop">Drag and drop to reorder list</p>
 		</main>
+		<script src="dragndrop.js"></script>
+		<script src="script.js" defer></script>
 	</body>
 </html>
