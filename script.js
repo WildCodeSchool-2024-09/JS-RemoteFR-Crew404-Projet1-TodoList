@@ -9,12 +9,99 @@ document.addEventListener("DOMContentLoaded", () => {
 	const clearCompleted = document.querySelector(".clear-completed");
 	const theme = document.querySelector("#theme");
 
+	let draggedItem = null;
+
+	// Load todos from localStorage
+	function loadTodos() {
+		const savedTodos = JSON.parse(localStorage.getItem("todos")) || [];
+		savedTodos.forEach((todo) => {
+			addTodoElement(todo.text, todo.completed);
+		});
+		updateItemsLeft();
+	}
+
 	function resetActiveFilter() {
 		filter_all.classList.remove("active");
 		filter_active.classList.remove("active");
 		filter_completed.classList.remove("active");
 	}
 
+	// Save todos to localStorage
+	function saveTodos() {
+		const todos = Array.from(todoItems).map((todo) => ({
+			text: todo.querySelector(".todo-text").textContent,
+			completed: todo.querySelector(".todo-checkbox").checked,
+		}));
+		localStorage.setItem("todos", JSON.stringify(todos));
+	}
+
+	// Add a new todo element
+	function addTodoElement(text, completed = false) {
+		const newTodo = document.createElement("li");
+		newTodo.draggable = true;
+		newTodo.classList.add("todo-item");
+		newTodo.innerHTML = `
+            <input type="checkbox" class="todo-checkbox" ${
+				completed ? "checked" : ""
+			} />
+            <span class="todo-text ${
+				completed ? "completed" : ""
+			}">${text}</span>
+            <button class="delete-btn">
+				<img src="./images/icon-cross.svg" alt="delete todo" />
+			</button>
+        `;
+		todoList.appendChild(newTodo);
+
+		// Add event listener to the checkbox
+		newTodo
+			.querySelector(".todo-checkbox")
+			.addEventListener("change", (e) => {
+				e.target.nextElementSibling.classList.toggle(
+					"completed",
+					e.target.checked
+				);
+				updateItemsLeft();
+				saveTodos();
+			});
+
+		// Add event listener drag and drop
+		newTodo.addEventListener("dragstart", (e) => {
+			draggedItem = newTodo;
+			setTimeout(() => {
+				newTodo.style.display = "none";
+			}, 0);
+		});
+
+		newTodo.addEventListener("dragend", () => {
+			setTimeout(() => {
+				draggedItem.style.display = "flex";
+				draggedItem = null;
+				saveTodos(); // save the new order
+			}, 0);
+		});
+
+		newTodo.addEventListener("dragover", (e) => {
+			e.preventDefault();
+		});
+
+		newTodo.addEventListener("drop", () => {
+			if (draggedItem !== newTodo) {
+				todoList.insertBefore(draggedItem, newTodo);
+			}
+		});
+	}
+
+	// Update the number of items left
+	function updateItemsLeft() {
+		const itemsLeft = Array.from(todoItems).filter(
+			(item) => !item.querySelector(".todo-checkbox").checked
+		).length;
+		nbTodos.textContent =
+			itemsLeft === 1 ? "1 item left" : `${itemsLeft} items left`;
+	}
+
+	// Dark mode
 	theme.addEventListener("click", () => {
 		document.body.classList.toggle("dark-theme");
 		if (document.body.classList.contains("dark-theme")) {
@@ -27,26 +114,10 @@ document.addEventListener("DOMContentLoaded", () => {
 	// Add new todo
 	todoInput.addEventListener("keypress", (e) => {
 		if (e.key === "Enter" && todoInput.value.trim() !== "") {
-			const newTodo = document.createElement("li");
-			newTodo.draggable = true;
-			newTodo.classList.add("todo-item");
-			newTodo.innerHTML = `
-                <input type="checkbox" class="todo-checkbox" />
-                <span class="todo-text">${todoInput.value}</span>
-                <button class="delete-btn">
-					<img src="./images/icon-cross.svg" alt="delete todo" />
-				</button>
-            `;
-			todoList.appendChild(newTodo);
+			addTodoElement(todoInput.value);
 			todoInput.value = "";
-
-			if (todoItems.length === 1) {
-				nbTodos.textContent = "1 item left";
-			} else if (todoItems.length === 0) {
-				nbTodos.textContent = "No items left";
-			} else {
-				nbTodos.textContent = `${todoItems.length} items left`;
-			}
+			updateItemsLeft();
+			saveTodos();
 		}
 	});
 
@@ -54,11 +125,12 @@ document.addEventListener("DOMContentLoaded", () => {
 	clearCompleted.addEventListener("click", () => {
 		Array.from(todoItems).forEach((todo) => {
 			todo.remove();
-			nbTodos.textContent = "No items left";
 		});
+		updateItemsLeft();
+		saveTodos();
 	});
 
-	// Display only completed todos
+	// Display active todos
 	filter_active.addEventListener("click", () => {
 		Array.from(todoItems).forEach((todo) => {
 			if (todo.querySelector(".todo-checkbox").checked) {
@@ -71,7 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		filter_active.classList.add("active");
 	});
 
-	// Display only active todos
+	// Display completed todos
 	filter_completed.addEventListener("click", () => {
 		Array.from(todoItems).forEach((todo) => {
 			if (todo.querySelector(".todo-checkbox").checked) {
@@ -93,17 +165,15 @@ document.addEventListener("DOMContentLoaded", () => {
 		filter_all.classList.add("active");
 	});
 
-	// Remove todo
+	// Delete a specific todo
 	todoList.addEventListener("click", (e) => {
 		if (e.target.parentElement.classList.contains("delete-btn")) {
 			e.target.parentElement.parentElement.remove();
-			if (todoItems.length === 1) {
-				nbTodos.textContent = "1 item left";
-			} else if (todoItems.length === 0) {
-				nbTodos.textContent = "No items left";
-			} else {
-				nbTodos.textContent = `${todoItems.length} items left`;
-			}
+			updateItemsLeft();
+			saveTodos();
 		}
 	});
+
+	// Load todos
+	loadTodos();
 });

@@ -217,6 +217,11 @@ ul.todo-list li .delete-btn {
 	font-size: 14px;
 }
 
+.filters .filter:hover {
+	font-weight: bolder;
+	color: var(--primary-color);
+}
+
 .todo-footer .clear-completed {
 	background: none;
 	border: none;
