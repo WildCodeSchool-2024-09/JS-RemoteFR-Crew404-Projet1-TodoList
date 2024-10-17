@@ -13,7 +13,7 @@ Ce projet est une application de gestion de tâches (Todo App) réalisée en HTM
 
 ## 🚀 Démo
 
-Vous pouvez voir la démo de l'application en cliquant sur le lien suivant : [Work In Progress](#)
+Vous pouvez voir la démo de l'application en cliquant sur le lien suivant : [Todo App](https://wildcodeschool-2024-09.github.io/JS-RemoteFR-Crew404-Projet1-TodoList/)
 
 ## Auteur
 
@@ -29,6 +29,7 @@ Vous pouvez voir la démo de l'application en cliquant sur le lien suivant : [Wo
 ### 🗃️ Version
 
 -   **v0.0.1** - First commit
+-   **v1.0.0** - Final version
 
 ---
 
